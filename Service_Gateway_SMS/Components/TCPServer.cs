@@ -377,7 +377,6 @@ namespace Service_Gateway_SMS
 							}
 							
 							gsm_module.connectSIM900();
-							gsm_module.setSignal();
 							gsm_module.prepareSMS();
 						}
 						catch(Exception e)
@@ -450,37 +449,38 @@ namespace Service_Gateway_SMS
 		public static void sendErrorEmail(int errorCode)
 		{
 			
-			Task.Factory.StartNew(() =>
-			                      {
-			                      	var post = new NameValueCollection();
-			                      	switch (errorCode)
-			                      	{
-			                      		case 1: //Send Error
-			                      			post.Add("devid", "v1C08EE53692D300");
-			                      			break;
-			                      		case 2: //Connection Error
-			                      			post.Add("devid", "vC8D54911B83D9B3");
-			                      			break;
-			                      		case 3:	//Connection OK
-			                      			post.Add("devid", "vEDAAF515FE7B6E2");
-			                      			break;
-			                      	}
-			                      	
-			                      	try
-			                      	{
-			                      		
-			                      		using (var wc = new WebClient())
-			                      		{
-			                      			wc.UploadValues("http://api.pushingbox.com/pushingbox", post);
-			                      		}
-			                      		
-			                      		post = null;
-			                      	}
-			                      	catch (WebException e)
-			                      	{
-			                      		logger.logData("EXEPCION: "+e);
-			                      	}
-			                      });
+			
+			var post = new NameValueCollection();
+			switch (errorCode)
+			{
+				case 1: //Send Error
+					post.Add("devid", "v1C08EE53692D300");
+					break;
+				case 2: //Connection Error
+					post.Add("devid", "vC8D54911B83D9B3");
+					break;
+				case 3:	//Connection OK
+					post.Add("devid", "vEDAAF515FE7B6E2");
+					break;
+			}
+			
+			try
+			{
+				
+				using (var wc = new WebClient())
+				{
+					wc.UploadValues("http://api.pushingbox.com/pushingbox", post);
+				}
+				post.Remove("devid");
+				post = null;
+			}
+			
+			catch (WebException e)
+			{
+				logger.logData("EXEPCION: "+e);
+			}
+			
+			
 		}
 		
 		
