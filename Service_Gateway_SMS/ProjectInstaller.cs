@@ -30,7 +30,7 @@ ServiceProcessInstaller serviceProcessInstaller =
             serviceProcessInstaller.Password = null;
 
             //# Service Information
-            serviceInstaller.DisplayName = "My New C# Windows Service";
+            serviceInstaller.DisplayName = "GatewaySMS_Service";
             serviceInstaller.StartType = ServiceStartMode.Automatic;
 
             //# This must be identical to the WindowsService.ServiceBase name

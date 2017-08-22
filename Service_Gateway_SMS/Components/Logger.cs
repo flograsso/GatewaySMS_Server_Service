@@ -19,7 +19,7 @@ namespace Service_Gateway_SMS
 	/// </summary>
 	public class Logger
 	{
-		string path = @"C:\\Log\";
+		string path = @"C:\\GatewaySMS_Service\Log\";
 		//string path = Environment.CurrentDirectory;
 		public FileStream fs;
 		public string fileNameBase = "log";
